@@ -10,27 +10,27 @@ candidates=[]
 vote_count={}
 
 
-with open(input_csv,"r") as poll:
-    csvreader=csv.DictReader(poll)
+with open(input_csv) as csv_file:
+    csvreader=csv.reader(csv_file)
 
     for row in csvreader:
     	total_votes +=1
     	if row ['Candidate'] not in candidates:
     		candidates.append(row['Candidate'])
     		vote_count[row['Candidate']]=1
-    	elif row ['Candidate']	in candidates:
+    	elif row['Candidate'] in candidates:
     		vote_count[row['Candidate']] += 1
 
-prev_cand= 0
+prior_candiate= 0
 
 print("Election Results")
 print("Total Vote Counts: "+ str(total_votes))
 for key, value in vote_count.items():
-    print(key+": "+ str(round((float(value/total_votes)*100),1))+"%"+" ("+ str(value)+")")
+    print(key + ": " + str(((float(value/total_votes)*100),1)) + "%" + " (" + str(value)+ ")")
 for key, value in vote_count.items():
-    if value > prev_cand:
+    if value > prior_candiate:
         most_vote = key
-        prev_cand = value
+        prior_candiate = value
 print("-------------------------")
 print("Winner: " + most_vote)
 print("-------------------------")
